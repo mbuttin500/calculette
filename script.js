@@ -1,35 +1,38 @@
-// --- ÉTAPE 1 : Fonctions mathématiques de base ---
-const add = (a, b) => a + b;
-const subtract = (a, b) => a - b;
-const multiply = (a, b) => a * b;
-const divide = (a, b) => {
-    if (b === 0) return "Nice try! Tu ne peux pas diviser par 0 ! 🤖";
-    return a / b;
-};
-
-// --- ÉTAPE 2 : Variables de la calculatrice ---
+// --- Variables de la calculatrice ---
 let firstNumber = '';
 let operator = '';
 let secondNumber = '';
 let displayValue = '0';
 
+// --- Sélection des éléments ---
 const display = document.getElementById('display');
+const keys = document.querySelector('.calculator-keys');
 
+// --- Fonction pour mettre à jour l'écran ---
 function updateDisplay() {
     display.textContent = displayValue;
 }
 
-// --- ÉTAPE 3 : Fonction operate ---
+// --- Fonction pour gérer la division par zéro ---
+function divide(a, b) {
+    if (b === 0) {
+        return "Nice try! Tu ne peux pas diviser par 0 ! 🤖";
+    }
+    return a / b;
+}
+
+// --- Fonction pour effectuer le calcul ---
 function operate(op, num1, num2) {
-    num1 = Number(num1);
-    num2 = Number(num2);
+    num1 = parseFloat(num1);
+    num2 = parseFloat(num2);
+    if (isNaN(num1) || isNaN(num2)) return null;
     switch (op) {
         case '+':
-            return add(num1, num2);
+            return num1 + num2;
         case '-':
-            return subtract(num1, num2);
+            return num1 - num2;
         case '*':
-            return multiply(num1, num2);
+            return num1 * num2;
         case '/':
             return divide(num1, num2);
         default:
@@ -37,19 +40,17 @@ function operate(op, num1, num2) {
     }
 }
 
-// --- ÉTAPES 5 & 6 : Gestion des clics et de la logique ---
-const keys = document.querySelector('.calculator-keys');
-
+// --- Écouteur d'événement principal sur la grille de touches ---
 keys.addEventListener('click', (event) => {
     const { target } = event;
-    if (!target.matches('button')) return;
+    if (!target.matches('button')) return; // Ignore si on ne clique pas sur un bouton
 
-    const action = target.dataset.action;
-    const buttonText = target.textContent;
+    const action = target.dataset.action; // Récupère l'action (add, clear, calculate...)
+    const buttonText = target.textContent; // Récupère le texte du bouton (+, -, 1, 2...)
 
-    // Si c'est un chiffre ou un point
+    // 1. Si c'est un chiffre ou un point (.)
     if (!action) {
-        if (displayValue === '0' || displayValue === 'Nice try! Tu ne peux pas diviser par 0 ! 🤖') {
+        if (displayValue === '0' || displayValue === "Nice try! Tu ne peux pas diviser par 0 ! 🤖") {
             displayValue = buttonText;
         } else {
             displayValue += buttonText;
@@ -58,7 +59,7 @@ keys.addEventListener('click', (event) => {
         return;
     }
 
-    // Gestion du bouton Clear (AC)
+    // 2. Gestion du bouton Clear (AC)
     if (action === 'clear') {
         firstNumber = '';
         operator = '';
@@ -68,8 +69,9 @@ keys.addEventListener('click', (event) => {
         return;
     }
 
-    // Gestion des opérateurs (+, -, *, /)
+    // 3. Gestion des opérateurs (+, -, *, /)
     if (['add', 'subtract', 'multiply', 'divide'].includes(action)) {
+        // Si on a déjà un premier nombre et un opérateur en attente, on calcule le résultat intermédiaire
         if (firstNumber && operator && displayValue !== firstNumber) {
             firstNumber = operate(operator, firstNumber, displayValue);
             displayValue = String(firstNumber);
@@ -78,25 +80,30 @@ keys.addEventListener('click', (event) => {
             firstNumber = displayValue;
         }
         
+        // Mappe l'action vers le symbole correspondant
         const symbols = { add: '+', subtract: '-', multiply: '*', divide: '/' };
         operator = symbols[action];
-        displayValue = '0';
+        displayValue = '0'; // Réinitialise l'écran pour le deuxième nombre
         return;
     }
 
-    // Gestion du bouton égal (=)
+    // 4. Gestion du bouton égal (=)
     if (action === 'calculate') {
-        if (!operator || !firstNumber) return;
+        if (!operator || !firstNumber) return; // Bloque si l'opération est incomplète
         
         secondNumber = displayValue;
         let result = operate(operator, firstNumber, secondNumber);
         
+        // Affiche le résultat
         displayValue = String(result);
         updateDisplay();
         
         // Réinitialisation partielle pour enchaîner les calculs
-        firstNumber = displayValue;
+        firstNumber = displayValue; // Le résultat devient le nouveau premier nombre
         operator = '';
         secondNumber = '';
     }
 });
+
+// Initialise l'écran au chargement
+updateDisplay();
