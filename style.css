@@ -1,0 +1,76 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f9;
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+.calculator {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+/* Écran */
+.calculator-screen {
+    background-color: #252525;
+    color: #fff;
+    font-size: 2rem;
+    height: 80px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+/* Grille de boutons gérée avec Flexbox */
+.calculator-keys {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    gap: 10px;
+    background-color: #f7f7f7;
+}
+
+.calculator-keys button {
+    flex: 1 1 21%; /* Permet de répartir les boutons sur 4 colonnes environ */
+    height: 60px;
+    font-size: 1.2rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.calculator-keys button:hover {
+    background-color: #eaeaea;
+}
+
+.calculator-keys button.operator {
+    background-color: #ff9500;
+    color: white;
+    border-color: #e08500;
+}
+
+.calculator-keys button.operator:hover {
+    background-color: #e08500;
+}
+
+.calculator-keys button.calculator-equals {
+    background-color: #34c759;
+    color: white;
+    border-color: #2da84a;
+    grid-row: span 2; /* S'adapte si besoin, ou géré par flex */
+}
+
+.calculator-keys button.calculator-equals:hover {
+    background-color: #2da84a;
+}

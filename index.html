@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculatrice</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="calculator">
+        <!-- Écran de la calculatrice (Étape 4) -->
+        <div id="display" class="calculator-screen">0</div>
+
+        <!-- Pavé de boutons -->
+        <div class="calculator-keys">
+            <button class="operator" data-action="clear" style="grid-column: span 2;">AC</button>
+            <button class="operator" data-action="divide">/</button>
+            <button class="operator" data-action="multiply">*</button>
+
+            <button>7</button>
+            <button>8</button>
+            <button>9</button>
+            <button class="operator" data-action="subtract">-</button>
+
+            <button>4</button>
+            <button>5</button>
+            <button>6</button>
+            <button class="operator" data-action="add">+</button>
+
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button class="calculator-equals" data-action="calculate">=</button>
+
+            <button style="grid-column: span 2;">0</button>
+            <button>.</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
