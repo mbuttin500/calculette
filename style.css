@@ -1,76 +1,98 @@
+/* Fond d'écran avec le Dragon */
 body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background-color: #f4f4f9;
-    font-family: Arial, sans-serif;
-    margin: 0;
+    /* Ajoute une image de dragon ici, ou utilise le dégradé ci-dessous */
+    background: 
+        radial-gradient(circle, rgba(75,0,130,0.3) 0%, rgba(0,0,0,0.7) 100%),
+        url('https://i.imgur.com/3i9tC9q.jpeg') no-repeat center center fixed; /* Exemple d'image de dragon */
+    background-size: cover;
+    font-family: 'Courier New', Courier, monospace; /* Pour un style terminal */
 }
 
+/* Conteneur principal de la calculatrice */
 .calculator {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.7); /* Fond semi-transparent pour voir le dragon */
+    border-radius: 15px;
+    box-shadow: 0px 0px 20px rgba(0, 255, 255, 0.3); /* Lueur bleutée */
+    padding: 20px;
     width: 300px;
-    background-color: #fff;
-    overflow: hidden;
+    border: 1px solid cyan;
 }
 
-/* Écran */
-.calculator-screen {
-    background-color: #252525;
-    color: #fff;
+/* L'écran */
+#display {
+    background-color: #222;
+    color: #0f0; /* Vert style terminal */
     font-size: 2rem;
-    height: 80px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 0 20px;
-    box-sizing: border-box;
+    text-align: right;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #0f0;
+    word-wrap: break-word;
+    word-break: break-all;
+    min-height: 50px; /* Pour éviter que l'écran ne rétrécisse trop */
 }
 
-/* Grille de boutons gérée avec Flexbox */
+/* La grille de boutons */
 .calculator-keys {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 10px;
-    gap: 10px;
-    background-color: #f7f7f7;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 colonnes égales */
+    gap: 10px; /* Espace entre les boutons */
 }
 
-.calculator-keys button {
-    flex: 1 1 21%; /* Permet de répartir les boutons sur 4 colonnes environ */
-    height: 60px;
+/* Style général des boutons */
+button {
+    padding: 20px;
     font-size: 1.2rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background-color: #fff;
+    border: 1px solid cyan;
+    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.calculator-keys button:hover {
-    background-color: #eaeaea;
-}
-
-.calculator-keys button.operator {
-    background-color: #ff9500;
+    transition: background-color 0.2s, transform 0.1s;
+    background-color: rgba(0, 128, 128, 0.3); /* Vert-bleu transparent */
     color: white;
-    border-color: #e08500;
 }
 
-.calculator-keys button.operator:hover {
-    background-color: #e08500;
+button:hover {
+    background-color: rgba(0, 128, 128, 0.6);
 }
 
-.calculator-keys button.calculator-equals {
-    background-color: #34c759;
-    color: white;
-    border-color: #2da84a;
-    grid-row: span 2; /* S'adapte si besoin, ou géré par flex */
+button:active {
+    transform: scale(0.95); /* Effet d'enfoncement */
 }
 
-.calculator-keys button.calculator-equals:hover {
-    background-color: #2da84a;
+/* Styles spécifiques pour certaines touches */
+.operator {
+    background-color: rgba(0, 255, 255, 0.2); /* Cyan transparent */
+    color: cyan;
+    font-weight: bold;
+}
+
+.operator:hover {
+    background-color: rgba(0, 255, 255, 0.5);
+}
+
+.calculator-equals {
+    grid-column: span 2; /* Le '=' prend la largeur de deux colonnes */
+    background-color: cyan;
+    color: black;
+}
+
+.calculator-equals:hover {
+    background-color: aqua;
+}
+
+.calculator-clear {
+    background-color: rgba(255, 0, 0, 0.3); /* Rouge transparent */
+    color: #ff4d4d;
+    grid-column: span 2; /* Le 'AC' prend aussi la largeur de deux colonnes */
+}
+
+.calculator-clear:hover {
+    background-color: rgba(255, 0, 0, 0.6);
 }
